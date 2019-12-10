@@ -1,8 +1,11 @@
 import requests
 import bs4
+import json
 
 url = 'https://www.smoothieking.com/menu/smoothies'
 res = requests.get(url)
+
+menu_list = list()
 
 webpage = res.content
 
@@ -13,4 +16,12 @@ smoothie_titles = soup.select(".smoothies-grid")
 for category in smoothie_titles:
     for smoothie in category:
         if type(smoothie) is bs4.element.Tag:
-            print(smoothie.attrs['title']+ ' is in the ' + smoothie.attrs['blend'] + ' category.')
+             
+                title = smoothie.attrs['title'].replace('<sup>', '').replace('</sup>', '')
+                category =  smoothie.attrs['blend']
+
+                menu_list.append({'title': title, 'category': category})
+
+
+with open('menu.json', 'w') as fout:
+    json.dump(menu_list, fout)
