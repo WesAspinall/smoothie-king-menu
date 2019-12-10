@@ -23,5 +23,5 @@ for category in smoothie_titles:
                 menu_list.append({'title': title, 'category': category})
 
 
-with open('menu.json', 'w') as fout:
-    json.dump(menu_list, fout)
+with open('menu.json', 'w', encoding='utf8') as fout:
+    json.dump(menu_list, fout, ensure_ascii=False)
