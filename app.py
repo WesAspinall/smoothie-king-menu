@@ -16,12 +16,11 @@ smoothie_titles = soup.select(".smoothies-grid")
 for category in smoothie_titles:
     for smoothie in category:
         if type(smoothie) is bs4.element.Tag:
-             
                 title = smoothie.attrs['title'].replace('<sup>', '').replace('</sup>', '')
                 category =  smoothie.attrs['blend']
 
                 menu_list.append({'title': title, 'category': category})
 
 
-with open('menu.txt', 'w', encoding='utf8') as fout:
+with open('menu.js', 'w', encoding='utf8') as fout:
     json.dump(menu_list, fout, ensure_ascii=False)
